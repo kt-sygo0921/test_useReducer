@@ -3,10 +3,6 @@ type State = {
     unit: string
 }
 
-// type IncrementAction = {
-//     type: "LONG_PREFIX_INCREMENT"
-// }
-
 type IncrementAction = ReturnType<typeof increment>
 type DecrementAction = ReturnType<typeof decrement>
 type SetCountAction = ReturnType<typeof setCount>
