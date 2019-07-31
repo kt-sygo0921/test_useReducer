@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
+import {reducer, initialState, increment, decrement, setCount} from './modules/module';
+
 import './App.css';
 
 const App: React.FC = () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState)
+  const onClickIncement = React.useCallback(() => dispatch(increment()), [])
+  const onClickDecement = React.useCallback(() => dispatch(decrement()), [])
+  const onClickSetCount = React.useCallback(() => dispatch(setCount(999)), [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>count: {state.count}</p>
+      <button onClick={onClickIncement}>+</button>
+      <button onClick={onClickDecement}>-</button>
+      <button onClick={onClickSetCount}>999</button>
     </div>
   );
 }
