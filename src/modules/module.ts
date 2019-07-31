@@ -3,18 +3,13 @@ type State = {
     unit: string
 }
 
-type IncrementAction = {
-    type: "LONG_PREFIX_INCREMENT"
-}
+// type IncrementAction = {
+//     type: "LONG_PREFIX_INCREMENT"
+// }
 
-type DecrementAction = {
-    type: "LONG_PREFIX_DECREMENT"
-}
-
-type SetCountAction = {
-    type: "LONG_PREFIX_SET_COUNT",
-    payload: {amount: number}
-}
+type IncrementAction = ReturnType<typeof increment>
+type DecrementAction = ReturnType<typeof decrement>
+type SetCountAction = ReturnType<typeof setCount>
 
 type Actions = IncrementAction | DecrementAction | SetCountAction
 
@@ -26,16 +21,16 @@ export const COUNT = {
     SET_COUNT: "LONG_PREFIX_SET_COUNT"
 } as const
 
-// action creaators
-export const increment = (): IncrementAction => {
+// action creators
+export const increment = () => {
     return {type: COUNT.INCREMENT}
 }
 
-export const decrement = (): DecrementAction =>  {
+export const decrement = () =>  {
     return {type: COUNT.DECREMENT}
 }
 
-export const setCount = (amount: number): SetCountAction => {
+export const setCount = (amount: number) => {
     return {type: COUNT.SET_COUNT, payload: {amount}}
 }
 
@@ -47,13 +42,13 @@ export const initialState: State = {
 // reducer
 export const reducer = (state: State, action: Actions) => {
     switch(action.type) {
-        case 'LONG_PREFIX_INCREMENT':
+        case COUNT.INCREMENT:
         return {...state, count: state.count+1}
 
-        case 'LONG_PREFIX_DECREMENT':
+        case COUNT.DECREMENT:
         return {...state, count: state.count-1}
 
-        case 'LONG_PREFIX_SET_COUNT':
+        case COUNT.SET_COUNT:
         return {...state, count: action.payload.amount}
     }
 }
